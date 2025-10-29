@@ -1,0 +1,48 @@
+📦 COMMANDES POUR PUBLIER NEXORA SUR GITHUB
+============================================
+
+1️⃣ AJOUTER LES FICHIERS
+------------------------
+git add .
+
+2️⃣ VÉRIFIER LES FICHIERS AJOUTÉS (optionnel)
+----------------------------------------------
+git status
+# Vérifier que node_modules/, .next/, deploy-package/, etc. ne sont PAS listés
+
+3️⃣ CRÉER LE COMMIT
+-------------------
+git commit -m "Initial commit: Site Nexora - Sites web assistés par l'IA"
+
+4️⃣ CRÉER LE REPOSITORY SUR GITHUB
+----------------------------------
+👉 Aller sur https://github.com
+👉 Cliquer sur "+" > "New repository"
+👉 Nom : nexora (ou autre)
+👉 Description : Site web Nexora - Sites web assistés par l'IA
+👉 NE PAS cocher "Initialize with README"
+👉 Cliquer sur "Create repository"
+
+5️⃣ CONNECTER AU REPOSITORY GITHUB
+-----------------------------------
+# REMPLACER YOUR-USERNAME par votre nom d'utilisateur GitHub
+git remote add origin https://github.com/YOUR-USERNAME/nexora.git
+
+# Vérifier la connexion
+git remote -v
+
+6️⃣ Pousser vers GitHub
+------------------------
+git branch -M main
+git push -u origin main
+
+✅ C'EST FAIT !
+---------------
+Votre projet est maintenant sur GitHub !
+Accédez à : https://github.com/YOUR-USERNAME/nexora
+
+📝 COMMANDES SUIVANTES (pour futures modifications)
+---------------------------------------------------
+git add .
+git commit -m "Description des modifications"
+git push
