@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact - Nexora</title>
+    <meta name="description" content="Contactez Nexora pour votre projet de site web. Devis gratuit en 24h. Email: contact@nexora-agenceweb.fr" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand: #17E668;
+            --brand-dark: #14C55A;
+            --bg: #0A0D14;
+            --surface: #10151F;
+            --surface-2: #1A1F2E;
+            --text: #FFFFFF;
+            --text-2: #B8BCC8;
+            --muted: #6B7280;
+            --border: #263044;
+            --danger: #EF4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(10, 13, 20, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            height: 72px;
+        }
+        
+        .nav .container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--brand);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--brand);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--brand);
+            color: black;
+        }
+        
+        .btn-primary:hover {
+            background: var(--brand-dark);
+            transform: translateY(-1px);
+        }
+        
+        .hero {
+            padding: 158px 0 72px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-2);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section {
+            padding: 72px 0;
+        }
+        
+        .text-brand {
+            color: var(--brand);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        
+        .mb-16 {
+            margin-bottom: 4rem;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        
+        @media (min-width: 768px) {
+            .md\\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--surface-2);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--surface-2);
+            color: var(--text);
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--brand);
+        }
+        
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer .container {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer .container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .footer .container {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        
+        .footer h3 {
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer a:hover {
+            color: var(--brand);
+        }
+        
+        .footer ul {
+            list-style: none;
+        }
+        
+        .footer li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .md\\:block {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <a href="/" class="logo">Nexora</a>
+            <div class="nav-links">
+                <a href="/offres/" class="nav-link">Offres</a>
+                <a href="/#faq" class="nav-link">FAQ</a>
+                <a href="/contact/" class="nav-link">Contact</a>
+            </div>
+            <div class="hidden md:block">
+                <a href="/contact/" class="btn btn-primary">Demander un devis</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Contactez <span class="text-brand">Nexora</span></h1>
+            <p>Décrivez votre projet et recevez un devis personnalisé en 24h</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Contact Form -->
+                <div>
+                    <div class="card">
+                        <h2 style="margin-bottom: 2rem;">Demandez votre devis</h2>
+                        <form action="mailto:contact@nexora-agenceweb.fr" method="post" enctype="text/plain">
+                            <div class="form-group">
+                                <label class="form-label">Nom complet *</label>
+                                <input type="text" name="name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Type de projet</label>
+                                <select name="project" class="form-input">
+                                    <option value="">Sélectionnez un type</option>
+                                    <option value="one-page">Site One Page (99€)</option>
+                                    <option value="vitrine">Site Vitrine 5 pages (199€)</option>
+                                    <option value="ecommerce">E-commerce 20 produits (350€)</option>
+                                    <option value="custom">Projet sur mesure</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message *</label>
+                                <textarea name="message" class="form-textarea" placeholder="Décrivez votre projet en détail..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer ma demande</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <div class="card">
+                        <h2 style="margin-bottom: 2rem;">Autres moyens de contact</h2>
+                        <div style="margin-bottom: 2rem;">
+                            <h3 style="color: var(--brand); margin-bottom: 0.5rem;">📧 E-mail</h3>
+                            <p style="color: var(--text-2); margin-bottom: 1rem;">Réponse sous 24h</p>
+                            <a href="mailto:contact@nexora-agenceweb.fr" style="color: white; text-decoration: none;">contact@nexora-agenceweb.fr</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h3>Nexora</h3>
+                <p style="color: var(--text-2); margin-bottom: 1rem;">Des sites web propulsés par l'IA, beaux, rapides et accessibles à tous.</p>
+            </div>
+            <div>
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="/offres/">Site One Page</a></li>
+                    <li><a href="/offres/">Site Vitrine 5 pages</a></li>
+                    <li><a href="/offres/">E-commerce 20 produits</a></li>
+                    <li><a href="/offres/">Application web</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:contact@nexora-agenceweb.fr">contact@nexora-agenceweb.fr</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Légal</h3>
+                <ul>
+                    <li><a href="/legal/">Mentions légales</a></li>
+                    <li><a href="/legal/#privacy">Politique de confidentialité</a></li>
+                    <li><a href="/legal/#cookies">Cookies</a></li>
+                    <li><a href="/legal/#cgu">CGV</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 3rem; padding-top: 2rem; text-align: center; color: var(--text-2);">
+            <p>&copy; 2024 Nexora. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            alert('Menu mobile - Version simplifiée');
+        }
+    </script>
+</body>
+</html>
