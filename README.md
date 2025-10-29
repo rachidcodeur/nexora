@@ -158,22 +158,32 @@ Toute la configuration est centralisée dans `lib/config.ts` pour faciliter les 
 
 ## 🚀 Déploiement
 
-### Option 1 : Hébergement mutualisé (recommandé)
+### VPS (Serveur Privé Virtuel)
 ```bash
-# Générer le package de déploiement
-./deploy-mutualise.sh
+# Sur votre VPS, cloner le repository
+git clone https://github.com/VOTRE-USERNAME/nexora.git
+cd nexora
 
-# Uploader le contenu de deploy-package/ dans public_html/
+# Installer les dépendances
+npm install
+
+# Build de production
+npm run build:production
+
+# Démarrer avec PM2 (recommandé)
+npm install -g pm2
+pm2 start npm --name "nexora" -- start
+pm2 save
+pm2 startup
 ```
 
-### Option 2 : Vercel
+### Autres options : Vercel, Netlify
 ```bash
+# Vercel
 npm install -g vercel
 vercel
-```
 
-### Option 3 : Netlify
-```bash
+# Netlify
 npm run build
 # Uploader via l'interface Netlify
 ```

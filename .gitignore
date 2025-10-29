@@ -12,8 +12,6 @@ node_modules/
 
 # Production
 /build
-/deploy-package/
-/public_html/
 
 # Misc
 .DS_Store
