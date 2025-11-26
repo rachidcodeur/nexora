@@ -24,7 +24,7 @@ export default function PortfolioPage() {
       type: 'app',
       description: 'Application web complète pour la gestion d\'événements de mariage avec planning, invités et budget.',
       image: '/mariage-parfait.webp',
-      stack: ['Next.js', 'Tailwind', 'IA', 'Stripe'],
+      stack: ['Next.js', 'Tailwind', 'IA'],
       results: ['+250% organisation', '+180% satisfaction', '4.9/5 avis'],
       testimonial: 'L\'application a révolutionné notre façon d\'organiser les mariages. Nos clients sont ravis !',
       client: 'Sarah & Marc, Organisateurs',

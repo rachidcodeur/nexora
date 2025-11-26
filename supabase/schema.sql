@@ -2,9 +2,7 @@
 CREATE TABLE IF NOT EXISTS nexora_orders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  stripe_session_id TEXT UNIQUE NOT NULL,
-  stripe_payment_intent_id TEXT,
-  stripe_refund_id TEXT,
+  payment_reference TEXT UNIQUE,
   offer_id TEXT NOT NULL,
   offer_name TEXT NOT NULL,
   amount INTEGER NOT NULL, -- Montant en centimes
@@ -18,7 +16,7 @@ CREATE TABLE IF NOT EXISTS nexora_orders (
 
 -- Index pour améliorer les performances
 CREATE INDEX IF NOT EXISTS idx_nexora_orders_user_id ON nexora_orders(user_id);
-CREATE INDEX IF NOT EXISTS idx_nexora_orders_stripe_session_id ON nexora_orders(stripe_session_id);
+CREATE INDEX IF NOT EXISTS idx_nexora_orders_payment_reference ON nexora_orders(payment_reference);
 CREATE INDEX IF NOT EXISTS idx_nexora_orders_status ON nexora_orders(status);
 CREATE INDEX IF NOT EXISTS idx_nexora_orders_created_at ON nexora_orders(created_at DESC);
 
@@ -60,7 +58,7 @@ CREATE POLICY "nexora_users_can_update_own_orders"
   USING (auth.uid() = user_id);
 
 -- Commentaires pour la documentation
-COMMENT ON TABLE nexora_orders IS 'Table pour stocker les commandes Stripe des clients';
+COMMENT ON TABLE nexora_orders IS 'Table pour stocker les commandes des clients';
 COMMENT ON COLUMN nexora_orders.amount IS 'Montant en centimes (ex: 24900 pour 249€)';
 COMMENT ON COLUMN nexora_orders.status IS 'Statut de la commande: pending, completed, failed, refunded';
 

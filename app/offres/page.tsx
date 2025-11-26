@@ -2,7 +2,6 @@
 
 import { CheckCircle, Star, Clock, Zap, Shield, Users, ShoppingCart, Code, ArrowRight, Bot, MessageCircle } from 'lucide-react'
 import Button from '@/components/Button'
-import PaymentButton from '@/components/PaymentButton'
 import Card from '@/components/Card'
 import Animation, { StaggerAnimation } from '@/components/Animations'
 
@@ -73,14 +72,14 @@ export default function OffersPage() {
       price: '799 €',
       originalPrice: '450 €',
       description: 'Petites boutiques, créateurs, drop-shipping initial',
-      pitch: 'Démarrez vos ventes en ligne avec un catalogue prêt, paiements sécurisés et e-mails automatisés.',
+      pitch: 'Démarrez vos ventes en ligne avec un catalogue prêt, gestion des commandes et e-mails automatisés.',
       icon: <ShoppingCart className="w-8 h-8 text-brand" />,
       delivery: '1 semaine',
       image: '/e-commerce.webp',
       features: [
         'Catalogue jusqu\'à 20 produits',
         'Panier et commandes fonctionnels',
-        'Modes de paiement sécurisés (Stripe, PayPal)',
+        'Gestion des commandes',
         'E-mails de commande automatisés',
         'Fiches produit complètes',
         'Gestion des stocks',
@@ -298,13 +297,9 @@ export default function OffersPage() {
 
                   <Animation animation="fadeInRight" delay={0.8}>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <PaymentButton
-                        offerId={offer.id}
-                        offerName={offer.name}
-                        price={offer.price}
-                        size="lg"
-                        className="group"
-                      />
+                      <Button href={`/contact?offer=${offer.id}`} variant="primary" size="lg">
+                        Demander un devis
+                      </Button>
                       <Button href={`/contact?offer=${offer.id}`} variant="secondary" size="lg">
                         Plus d'infos
                       </Button>

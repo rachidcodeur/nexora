@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Menu, X, User } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Button from './Button'
 import { useAuth } from '@/lib/auth'
 
@@ -105,9 +105,12 @@ export default function Navigation() {
           {/* CTA Button & Auth - Right */}
           <div className="hidden md:flex items-center justify-end space-x-4">
             {user ? (
-              <Link href="/compte" className="p-2 text-white hover:text-brand transition-colors">
-                <User className="w-5 h-5" />
-              </Link>
+              <Button href="/connexion" variant="secondary" onClick={async () => {
+                const { signOut } = await import('@/lib/auth')
+                await signOut()
+              }}>
+                Déconnexion
+              </Button>
             ) : (
               <Button href="/connexion" variant="secondary">
                 Connexion
@@ -238,13 +241,16 @@ export default function Navigation() {
               {/* CTA Button */}
               <div className="p-6 border-t border-white/10 mobile-menu-cta-container mobile-menu-force-opaque space-y-3" style={{ backgroundColor: '#10151f', background: '#10151f', opacity: 1 }}>
                 {user ? (
-                  <Link
-                    href="/compte"
+                  <button
+                    onClick={async () => {
+                      setIsOpen(false)
+                      const { signOut } = await import('@/lib/auth')
+                      await signOut()
+                    }}
                     className="block w-full text-center py-3 px-4 bg-surface-2 hover:bg-surface rounded-lg transition-colors"
-                    onClick={() => setIsOpen(false)}
                   >
-                    Mon Compte
-                  </Link>
+                    Déconnexion
+                  </button>
                 ) : (
                   <Link
                     href="/connexion"

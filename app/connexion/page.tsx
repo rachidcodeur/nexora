@@ -32,15 +32,7 @@ export default function ConnexionPage() {
   // Rediriger si déjà connecté
   useEffect(() => {
     if (user) {
-      const params = new URLSearchParams(window.location.search)
-      const redirect = params.get('redirect')
-      if (redirect === 'payment') {
-        // Si l'utilisateur vient du paiement, on le redirige vers les offres
-        // pour qu'il puisse recommencer le processus de paiement
-        router.push('/offres')
-      } else {
-        router.push('/compte')
-      }
+      router.push('/')
     }
   }, [user, router])
 
@@ -73,33 +65,11 @@ export default function ConnexionPage() {
         console.log('✅ [Connexion] Inscription réussie:', data.user?.id)
 
         if (data.user) {
-          // Attendre un peu pour que useAuth se mette à jour
-          await new Promise(resolve => setTimeout(resolve, 500))
-
-          // Vérifier si on vient d'un paiement
-          const params = new URLSearchParams(window.location.search)
-          const redirect = params.get('redirect')
-          const offerId = params.get('offerId')
-          
-          if (redirect === 'payment') {
-            setMessage('Compte créé avec succès ! Vous allez être redirigé pour finaliser votre paiement.')
-            // Attendre un peu puis rediriger vers les offres
-            setTimeout(() => {
-              if (offerId) {
-                router.push(`/offres?offerId=${encodeURIComponent(offerId)}`)
-                window.location.href = `/offres?offerId=${encodeURIComponent(offerId)}`
-              } else {
-                router.push('/offres')
-                window.location.href = '/offres'
-              }
-            }, 2000)
-          } else {
-            setMessage('Compte créé avec succès ! Vérifiez votre email pour confirmer votre compte.')
-            setTimeout(() => {
-              setMode('login')
-              setMessage(null)
-            }, 3000)
-          }
+          setMessage('Compte créé avec succès ! Vérifiez votre email pour confirmer votre compte.')
+          setTimeout(() => {
+            setMode('login')
+            setMessage(null)
+          }, 3000)
         }
       } else {
         const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
@@ -114,33 +84,11 @@ export default function ConnexionPage() {
 
         console.log('✅ [Connexion] Connexion réussie:', signInData.user?.id)
 
-        // Attendre un peu pour que useAuth se mette à jour
-        await new Promise(resolve => setTimeout(resolve, 500))
-
-        // Vérifier si on vient d'un paiement
-        const params = new URLSearchParams(window.location.search)
-        const redirect = params.get('redirect')
-        const offerId = params.get('offerId')
-        
-        if (redirect === 'payment') {
-          setMessage('Connexion réussie ! Vous allez être redirigé pour finaliser votre paiement.')
-          setTimeout(() => {
-            if (offerId) {
-              router.push(`/offres?offerId=${encodeURIComponent(offerId)}`)
-            } else {
-              router.push('/offres')
-            }
-            // Forcer le rechargement pour mettre à jour l'état d'authentification
-            window.location.href = offerId ? `/offres?offerId=${encodeURIComponent(offerId)}` : '/offres'
-          }, 1000)
-        } else {
-          setMessage('Connexion réussie !')
-          setTimeout(() => {
-            router.push('/compte')
-            // Forcer le rechargement pour mettre à jour l'état d'authentification
-            window.location.href = '/compte'
-          }, 1000)
-        }
+        setMessage('Connexion réussie !')
+        setTimeout(() => {
+          router.push('/')
+          window.location.href = '/'
+        }, 1000)
       }
     } catch (err: any) {
       console.error('❌ [Connexion] Erreur:', err)

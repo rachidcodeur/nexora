@@ -43,7 +43,7 @@ export default function Home() {
       name: 'E-commerce 20 produits',
       price: '799 €',
       description: 'Petites boutiques, créateurs',
-      features: ['20 produits', 'Paiements sécurisés', 'Gestion commandes', 'E-mails automatisés'],
+      features: ['20 produits', 'Gestion de catalogue', 'E-mails automatisés', 'Interface intuitive'],
       delivery: '1 semaine',
       popular: false,
       href: '/offres#ecommerce'
@@ -63,8 +63,8 @@ export default function Home() {
     },
     {
       step: '3',
-      title: 'Payez',
-      description: 'Procédez au paiement sécurisé par carte bancaire. La validation est instantanée pour lancer la production.'
+      title: 'Validez',
+      description: 'Validez le devis et signez le bon de commande. Nous lançons la production dès validation du projet.'
     },
     {
       step: '4',
@@ -87,7 +87,7 @@ export default function Home() {
       sector: 'Technologie',
       type: 'Site Vitrine',
       image: '/loomeo.webp',
-      stack: 'Shopify, IA, Stripe',
+      stack: 'Shopify, IA',
       url: 'https://loomeo.io/'
     },
     {

@@ -15,8 +15,6 @@ const envContent = fs.readFileSync(envPath, 'utf8');
 const lines = envContent.split('\n');
 
 const requiredVars = {
-  'STRIPE_SECRET_KEY': false,
-  'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY': false,
   'NEXT_PUBLIC_SITE_URL': false,
   'NEXT_PUBLIC_SUPABASE_URL': false,
   'SUPABASE_SERVICE_ROLE_KEY': false,
@@ -28,13 +26,11 @@ lines.forEach(line => {
     const [key] = trimmed.split('=');
     if (key && requiredVars.hasOwnProperty(key.trim())) {
       const value = trimmed.split('=').slice(1).join('=');
-      // Accepter les clés test (sk_test_, pk_test_) et live (sk_live_, pk_live_)
+      // Accepter les URLs et autres valeurs valides
       if (value && 
           !value.includes('VOTRE_') && 
           !value.includes('VOTRE_CLE') &&
-          (value.startsWith('sk_test_') || value.startsWith('sk_live_') || 
-           value.startsWith('pk_test_') || value.startsWith('pk_live_') ||
-           value.startsWith('http://') || value.startsWith('https://'))) {
+          (value.startsWith('http://') || value.startsWith('https://') || value.length > 10)) {
         requiredVars[key.trim()] = true;
       }
     }
@@ -52,7 +48,7 @@ Object.entries(requiredVars).forEach(([key, isSet]) => {
 
 if (!allGood) {
   console.log('\n⚠️  Certaines variables ne sont pas définies ou contiennent des placeholders.');
-  console.log('💡 Remplacez les valeurs "VOTRE_CLE_..." par vos vraies clés Stripe.');
+  console.log('💡 Vérifiez que toutes les variables sont correctement définies.');
   console.log('💡 Puis redémarrez le serveur avec: npm run dev\n');
   process.exit(1);
 } else {
