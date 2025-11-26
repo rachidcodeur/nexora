@@ -13,6 +13,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^8.4.0",
+    "@supabase/supabase-js": "^2.77.0",
     "clsx": "^2.1.1",
     "framer-motion": "^10.16.16",
     "gsap": "^3.13.0",
@@ -20,6 +22,7 @@
     "next": "^14.2.33",
     "react": "^18",
     "react-dom": "^18",
+    "stripe": "^19.3.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {

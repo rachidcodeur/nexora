@@ -743,6 +743,29 @@ p, li {
   .section {
     padding: 28px 0;
   }
+
+  .hero {
+    padding-top: 140px !important;
+    padding-bottom: 60px;
+  }
+
+  /* Titres h1 à 35px sur mobile */
+  h1 {
+    font-size: 35px !important;
+  }
+
+  /* Titres de sections à 24px sur mobile */
+  .section h2,
+  section h2 {
+    font-size: 24px !important;
+  }
+
+  /* Centrer le texte des boutons sur mobile */
+  .btn,
+  a.btn {
+    justify-content: center !important;
+    text-align: center !important;
+  }
 }
 
 /* Focus states */
@@ -751,12 +774,183 @@ p, li {
   box-shadow: var(--ring);
 }
 
-/* Mobile Menu Glass Effect */
+/* Mobile Menu - Fond #10151f opaque - PRIORITÉ ABSOLUE */
 .mobile-menu-glass {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #10151f !important;
+  background-color: #10151f !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 9999 !important;
+  opacity: 1 !important;
+}
+
+/* Classe CSS ultra-spécifique pour forcer le fond opaque - PRIORITÉ ABSOLUE */
+.mobile-menu-force-opaque {
+  background: #10151f !important;
+  background-color: #10151f !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Panel et backdrop explicitement colorés */
+.mobile-menu-panel,
+.mobile-menu-backdrop {
+  background: #10151f !important;
+  background-color: #10151f !important;
+}
+
+.mobile-menu-force-opaque > *,
+.mobile-menu-force-opaque div,
+.mobile-menu-force-opaque a:not(.mobile-menu-cta-button):not(.mobile-menu-cta-button),
+.mobile-menu-force-opaque button:not(.mobile-menu-cta-button):not(.mobile-menu-cta-button) {
+  background: #10151f !important;
+  background-color: #10151f !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Exclure spans et bouton CTA */
+.mobile-menu-force-opaque span,
+.mobile-menu-force-opaque .mobile-menu-cta-button,
+.mobile-menu-force-opaque .mobile-menu-cta-button * {
+  background: inherit !important;
+  background-color: inherit !important;
+}
+
+/* Force menu mobile à être complètement opaque - PRIORITÉ MAXIMALE */
+@media (max-width: 768px) {
+  /* Menu panel lui-même - FORCER */
+  [style*="z-index: 9999"],
+  [style*="z-index: 9999"][style*="9999"] {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.8), -2px 0 10px rgba(0, 0, 0, 0.6) !important;
+    -webkit-box-shadow: -4px 0 20px rgba(0, 0, 0, 0.8), -2px 0 10px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  /* Classes spécifiques - TOUJOURS OPAQUE */
+  div.mobile-menu-container,
+  div.mobile-menu-header,
+  div.mobile-menu-links,
+  div.mobile-menu-cta-container,
+  a.mobile-menu-link,
+  button.mobile-menu-link,
+  button.mobile-menu-close-btn {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+  }
+
+  /* TOUS les enfants - FORCER OPAQUE */
+  [style*="z-index: 9999"] > div,
+  [style*="z-index: 9999"] div,
+  [style*="z-index: 9999"] > *,
+  [style*="z-index: 9999"] > * > *,
+  .mobile-menu-container > *,
+  .mobile-menu-container div,
+  .mobile-menu-header > *,
+  .mobile-menu-header div,
+  .mobile-menu-links > *,
+  .mobile-menu-links div {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Liens et boutons - FORCER OPAQUE */
+  [style*="z-index: 9999"] a,
+  [style*="z-index: 9999"] button,
+  [style*="z-index: 9999"] > a,
+  [style*="z-index: 9999"] > button,
+  [style*="z-index: 9999"] a.mobile-menu-link,
+  [style*="z-index: 9999"] button.mobile-menu-link,
+  .mobile-menu-links a,
+  .mobile-menu-links button,
+  .mobile-menu-link,
+  a.mobile-menu-link,
+  button.mobile-menu-link {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Etats : hover, focus, active pour les liens du menu mobile */
+  .mobile-menu-link:hover,
+  .mobile-menu-link:focus,
+  .mobile-menu-link:active,
+  .mobile-menu-links a:hover,
+  .mobile-menu-links a:focus,
+  .mobile-menu-links a:active,
+  [style*="z-index: 9999"] a.mobile-menu-link:hover,
+  [style*="z-index: 9999"] a.mobile-menu-link:focus,
+  [style*="z-index: 9999"] a.mobile-menu-link:active,
+  [style*="z-index: 9999"] button.mobile-menu-link:hover,
+  [style*="z-index: 9999"] button.mobile-menu-link:focus,
+  [style*="z-index: 9999"] button.mobile-menu-link:active {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    background-image: none !important;
+  }
+
+  /* SURVOL - GARDER OPAQUE */
+  [style*="z-index: 9999"] a:hover,
+  [style*="z-index: 9999"] button:hover,
+  .mobile-menu-link:hover,
+  a.mobile-menu-link:hover,
+  button.mobile-menu-link:hover {
+    background: #10151f !important;
+    background-color: #10151f !important;
+    background-image: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Span texte - transparent OK */
+  [style*="z-index: 9999"] span:not(.mobile-menu-link),
+  .mobile-menu-header span,
+  .mobile-menu-links span:not(.mobile-menu-link) {
+    background-color: transparent !important;
+    opacity: 1 !important;
+  }
+
+  /* Exception : bouton CTA avec fond vert dans le menu mobile */
+  .mobile-menu-cta-button,
+  .mobile-menu-cta-button.btn--primary,
+  [style*="z-index: 9999"] .mobile-menu-cta-button,
+  [style*="z-index: 9999"] .mobile-menu-cta-button.btn--primary {
+    background-color: #17E668 !important;
+    color: #07120b !important;
+  }
+
+  /* Hover du bouton vert dans le menu mobile */
+  .mobile-menu-cta-button:hover,
+  .mobile-menu-cta-button.btn--primary:hover,
+  [style*="z-index: 9999"] .mobile-menu-cta-button:hover,
+  [style*="z-index: 9999"] .mobile-menu-cta-button.btn--primary:hover {
+    background-color: #17E668 !important;
+    filter: saturate(1.05) brightness(0.98) !important;
+  }
+
+  /* Désactiver tous les effets hover transparents sauf le bouton CTA */
+  [style*="z-index: 9999"] a:not(.mobile-menu-cta-button):hover,
+  [style*="z-index: 9999"] button:not(.mobile-menu-cta-button):hover {
+    background-color: #10151f !important;
+  }
 }
 
 /* Mobile Menu Animation */

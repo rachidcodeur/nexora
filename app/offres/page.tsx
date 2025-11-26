@@ -1,19 +1,17 @@
+'use client'
+
 import { CheckCircle, Star, Clock, Zap, Shield, Users, ShoppingCart, Code, ArrowRight, Bot, MessageCircle } from 'lucide-react'
 import Button from '@/components/Button'
+import PaymentButton from '@/components/PaymentButton'
 import Card from '@/components/Card'
 import Animation, { StaggerAnimation } from '@/components/Animations'
-
-export const metadata = {
-  title: 'Nos Offres - Nexora',
-  description: 'Découvrez nos packs de création de sites web : One Page (100€), Site Vitrine 5 pages (199€), E-commerce 20 produits (350€). Livraison rapide avec l\'IA.',
-}
 
 export default function OffersPage() {
   const offers = [
     {
       id: 'one-page',
       name: 'One Page',
-      price: '99 €',
+      price: '249 €',
       originalPrice: null,
       description: 'Landing, événement, freelance débutant',
       pitch: 'Une page unique, claire et efficace pour lancer votre présence en ligne et capter vos premiers clients.',
@@ -42,7 +40,7 @@ export default function OffersPage() {
     {
       id: 'vitrine',
       name: 'Site Vitrine 5 pages',
-      price: '199 €',
+      price: '499 €',
       originalPrice: '249 €',
       description: 'TPE/PME, artisans, professionnels',
       pitch: 'La base solide pour votre activité : structure claire, design poli et SEO propre pour être trouvé.',
@@ -72,7 +70,7 @@ export default function OffersPage() {
     {
       id: 'ecommerce',
       name: 'E-commerce 20 produits',
-      price: '350 €',
+      price: '799 €',
       originalPrice: '450 €',
       description: 'Petites boutiques, créateurs, drop-shipping initial',
       pitch: 'Démarrez vos ventes en ligne avec un catalogue prêt, paiements sécurisés et e-mails automatisés.',
@@ -300,9 +298,15 @@ export default function OffersPage() {
 
                   <Animation animation="fadeInRight" delay={0.8}>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button href={`/contact?offer=${offer.id}`} variant="primary" size="lg" className="group">
-                        {offer.cta}
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <PaymentButton
+                        offerId={offer.id}
+                        offerName={offer.name}
+                        price={offer.price}
+                        size="lg"
+                        className="group"
+                      />
+                      <Button href={`/contact?offer=${offer.id}`} variant="secondary" size="lg">
+                        Plus d'infos
                       </Button>
                     </div>
                   </Animation>

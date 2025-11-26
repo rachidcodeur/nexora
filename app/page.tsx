@@ -23,7 +23,7 @@ export default function Home() {
   const offers = [
     {
       name: 'One Page',
-      price: '99 €',
+      price: '249 €',
       description: 'Landing, événement, freelance débutant',
       features: ['1 page responsive', 'Sections essentielles', '1 formulaire', 'SEO de base'],
       delivery: 'Express (2-3 jours)',
@@ -32,7 +32,7 @@ export default function Home() {
     },
     {
       name: 'Site Vitrine 5 pages',
-      price: '199 €',
+      price: '499 €',
       description: 'TPE/PME, artisans, professionnels',
       features: ['5 pages complètes', 'Design moderne', 'SEO avancé', 'Maintenance 15 jours'],
       delivery: '4 jours',
@@ -41,7 +41,7 @@ export default function Home() {
     },
     {
       name: 'E-commerce 20 produits',
-      price: '350 €',
+      price: '799 €',
       description: 'Petites boutiques, créateurs',
       features: ['20 produits', 'Paiements sécurisés', 'Gestion commandes', 'E-mails automatisés'],
       delivery: '1 semaine',

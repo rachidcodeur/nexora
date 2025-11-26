@@ -1,11 +1,12 @@
 'use client'
+import dynamic from 'next/dynamic'
 
 import { useState } from 'react'
 import { Mail, Phone, MessageCircle, Clock, CheckCircle, AlertCircle, Send } from 'lucide-react'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 
-export default function ContactPage() {
+function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,11 +18,13 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitError, setSubmitError] = useState<string>('')
+  const [showSuccessToast, setShowSuccessToast] = useState(false)
 
   const projectTypes = [
-    { value: 'one-page', label: 'Site One Page (100€)' },
-    { value: 'vitrine', label: 'Site Vitrine 5 pages (199€)' },
-    { value: 'ecommerce', label: 'E-commerce 20 produits (350€)' },
+    { value: 'one-page', label: 'Site One Page (249€)' },
+    { value: 'vitrine', label: 'Site Vitrine 5 pages (499€)' },
+    { value: 'ecommerce', label: 'E-commerce 20 produits (799€)' },
     { value: 'custom', label: 'Application web sur mesure' },
     { value: 'other', label: 'Autre projet' }
   ]
@@ -46,19 +49,30 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setSubmitError('')
 
     try {
-      // Simulation d'envoi - remplacer par votre logique d'envoi
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Ici vous pouvez ajouter l'envoi réel du formulaire
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // })
-      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          meta: {
+            userAgent: typeof window !== 'undefined' ? navigator.userAgent : undefined,
+            page: '/contact',
+          },
+        }),
+      })
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({} as any))
+        throw new Error(err?.error || 'Échec de l’envoi')
+      }
+
       setSubmitStatus('success')
+      setShowSuccessToast(true)
+      // Masquer le toast automatique après 5s
+      setTimeout(() => setShowSuccessToast(false), 5000)
       setFormData({
         name: '',
         email: '',
@@ -68,8 +82,9 @@ export default function ContactPage() {
         message: '',
         consent: false
       })
-    } catch (error) {
+    } catch (error: any) {
       setSubmitStatus('error')
+      setSubmitError(error?.message || 'Erreur inconnue')
     } finally {
       setIsSubmitting(false)
     }
@@ -87,15 +102,15 @@ export default function ContactPage() {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" suppressHydrationWarning>
       {/* Hero Section */}
       <section className="section hero bg-gradient-to-br from-bg via-bg to-surface-2">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-5xl md:text-6xl font-bold">
+            <h1 className="text-5xl md:text-6xl font-bold" suppressHydrationWarning>
               Un <span className="text-brand">projet</span> ? Parlons-en
             </h1>
-            <p className="text-xl text-text-2 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-text-2 max-w-2xl mx-auto leading-relaxed" suppressHydrationWarning>
               Remplissez le formulaire ou contactez-nous directement. 
               Nous répondons sous 24-48h ouvrées.
             </p>
@@ -117,29 +132,24 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="container py-4">
-        <div className="grid lg:grid-cols-2 gap-16">
+      <div className="container py-3 md:py-4">
+        <div className="grid lg:grid-cols-2 gap-y-10 gap-x-8 md:gap-x-12 lg:gap-x-16 xl:gap-x-20 md:gap-y-16">
           {/* Contact Form */}
           <div>
-            <Card className="p-8">
-              <h2 className="text-2xl font-bold mb-6">Demandez votre devis</h2>
+            <Card className="px-[26px] py-5 md:p-8">
+              <h2 className="text-2xl font-bold mb-6">Demandez un devis gratuit</h2>
               
-              {submitStatus === 'success' && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  <p className="text-green-800">Message envoyé avec succès ! Nous vous répondrons sous 24-48h.</p>
-                </div>
-              )}
+              {/* Message de succès déplacé en toast bas de page */}
 
               {submitStatus === 'error' && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-3">
                   <AlertCircle className="w-5 h-5 text-red-600" />
-                  <p className="text-red-800">Erreur lors de l'envoi. Veuillez réessayer ou nous contacter directement.</p>
+                  <p className="text-red-800">Erreur lors de l'envoi. {submitError || 'Veuillez réessayer ou nous contacter directement.'}</p>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div>
                     <label htmlFor="name" className="label">
                       Nom complet *
@@ -172,7 +182,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div>
                     <label htmlFor="phone" className="label">
                       Téléphone
@@ -291,7 +301,7 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Info & FAQ */}
-          <div className="space-y-8">
+          <div className="space-y-8 mt-8 lg:mt-0">
             {/* Contact Methods */}
             <Card className="p-8">
               <h2 className="text-2xl font-bold mb-6 text-white">Autres moyens de contact</h2>
@@ -328,6 +338,18 @@ export default function ContactPage() {
 
       {/* Spacing before footer */}
       <div className="py-8"></div>
+
+      {/* Toast de succès en bas de page */}
+      {showSuccessToast && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[10001]">
+          <div className="px-4 py-3 rounded-lg bg-green-500/90 text-[#07120b] shadow-lg backdrop-blur-sm flex items-center gap-2">
+            <CheckCircle className="w-5 h-5" />
+            <span className="font-medium">Message envoyé avec succès !</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
+
+export default dynamic(() => Promise.resolve(ContactPage), { ssr: false })

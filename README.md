@@ -107,7 +107,7 @@ nexora/
 
 ### Offres (`/offres`)
 - Layout checkerboard avec images
-- 3 packs tarifaires : One Page (99€), Vitrine (199€), E-commerce (350€)
+- 3 packs tarifaires : One Page (249€), Vitrine (499€), E-commerce (799€)
 - Options et sur-mesure
 - Section transparence
 - CTA final

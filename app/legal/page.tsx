@@ -10,7 +10,7 @@ export default function LegalPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="section bg-gradient-to-br from-bg via-bg to-surface-2">
+      <section className="section hero bg-gradient-to-br from-bg via-bg to-surface-2">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h1 className="text-5xl md:text-6xl font-bold">
