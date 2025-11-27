@@ -1,8 +1,28 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@supabase/supabase-js'
 
 // Use Edge runtime to avoid Node fetch issues in some environments
 export const runtime = 'edge'
+
+// Créer un client Supabase avec service_role pour bypass RLS
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ltylxkpzujydcrccsyol.supabase.co'
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  
+  if (serviceRoleKey) {
+    // Utiliser service_role pour bypass RLS
+    return createClient(supabaseUrl, serviceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
+  }
+  
+  // Fallback sur anon key (nécessitera une politique RLS)
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0eWx4a3B6dWp5ZGNyY2NzeW9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMjQ1NDEsImV4cCI6MjA3MzgwMDU0MX0.HrjEkbBHSsqvju3Ze3urq_D961DT9TIINEJb76pXCs8'
+  return createClient(supabaseUrl, anonKey)
+}
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -41,7 +61,8 @@ export async function POST(req: Request) {
     }
 
     // Insert into Supabase
-    // Nouvelle table: nexora_contacts_submissions
+    // Utiliser un client avec service_role pour bypass RLS
+    const supabase = getSupabaseClient()
     let insertError: any | null = null
     let inserted: any = null
 
@@ -116,7 +137,7 @@ export async function POST(req: Request) {
     // Utiliser service_role côté serveur pour contourner RLS si nécessaire
     try {
       const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ltylxkpzujydcrccsyol.supabase.co') + '/rest/v1/nexora_contacts_submissions'
-      // Essayer d'abord avec anon, puis service_role si disponible (côté serveur uniquement)
+      // Prioriser service_role pour bypass RLS, sinon utiliser anon (nécessitera une politique RLS)
       const apiKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0eWx4a3B6dWp5ZGNyY2NzeW9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMjQ1NDEsImV4cCI6MjA3MzgwMDU0MX0.HrjEkbBHSsqvju3Ze3urq_D961DT9TIINEJb76pXCs8'
 
       // eslint-disable-next-line no-console
