@@ -42,11 +42,15 @@ export default function Animation({
         animationConfig.y = 0
         break
       case 'fadeInLeft':
-        gsap.set(element, { x: -50 })
+        // Réduire l'amplitude sur mobile pour éviter le défilement horizontal
+        const leftOffset = window.innerWidth < 768 ? -20 : -50
+        gsap.set(element, { x: leftOffset })
         animationConfig.x = 0
         break
       case 'fadeInRight':
-        gsap.set(element, { x: 50 })
+        // Réduire l'amplitude sur mobile pour éviter le défilement horizontal
+        const rightOffset = window.innerWidth < 768 ? 20 : 50
+        gsap.set(element, { x: rightOffset })
         animationConfig.x = 0
         break
       case 'scaleIn':

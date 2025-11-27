@@ -91,6 +91,11 @@ export const metadata: Metadata = {
     yahoo: 'your-yahoo-verification-code',
   },
   category: 'technology',
+  icons: {
+    icon: '/favicon-nexora.png',
+    shortcut: '/favicon-nexora.png',
+    apple: '/favicon-nexora.png',
+  },
 }
 
 export default function RootLayout({

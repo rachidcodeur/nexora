@@ -168,7 +168,7 @@ export default function OffersPage() {
   ]
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden w-full max-w-full">
       {/* Hero Section */}
       <section className="section hero bg-gradient-to-br from-bg via-bg to-surface-2">
         <div className="container">
@@ -205,13 +205,13 @@ export default function OffersPage() {
             {offers.map((offer, index) => (
               <div key={index} className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 {/* Image */}
-                <div className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                <div className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''} overflow-hidden`}>
                   <Animation animation="fadeInLeft" delay={0.2}>
-                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-2 to-surface flex justify-center">
+                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-2 to-surface flex justify-center w-full">
                       <img 
                         src={offer.image} 
                         alt={`Exemple de ${offer.name}`}
-                        className="w-[1000px] h-[496px] object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full max-w-full h-auto md:h-[496px] object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                       
