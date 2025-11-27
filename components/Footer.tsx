@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { Mail, Phone, MessageCircle, Github, Twitter, Linkedin } from 'lucide-react'
+import { Github, Twitter, Linkedin } from 'lucide-react'
 
 export default function Footer() {
   return (
     <footer className="bg-surface border-t bg-gradient-to-br from-surface to-surface-2" style={{ borderTopColor: '#263044' }}>
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-brand">Nexora</h3>
@@ -45,18 +45,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Contact</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-brand" />
-                <a href="mailto:contact@nexora-agenceweb.fr" className="text-white hover:text-white transition-colors" style={{ color: 'white' }}>
-                  contact@nexora-agenceweb.fr
-                </a>
-              </li>
-            </ul>
-          </div>
 
           {/* Legal */}
           <div>

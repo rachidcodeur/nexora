@@ -5,11 +5,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import Button from './Button'
-import { useAuth } from '@/lib/auth'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const { user } = useAuth()
   const router = useRouter()
 
   // Bloquer le scroll quand le menu est ouvert
@@ -102,20 +100,8 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA Button & Auth - Right */}
+          {/* CTA Button - Right */}
           <div className="hidden md:flex items-center justify-end space-x-4">
-            {user ? (
-              <Button href="/connexion" variant="secondary" onClick={async () => {
-                const { signOut } = await import('@/lib/auth')
-                await signOut()
-              }}>
-                Déconnexion
-              </Button>
-            ) : (
-              <Button href="/connexion" variant="secondary">
-                Connexion
-              </Button>
-            )}
             <Button href="/contact" variant="primary">
               Demander un devis
             </Button>
@@ -240,26 +226,6 @@ export default function Navigation() {
               
               {/* CTA Button */}
               <div className="p-6 border-t border-white/10 mobile-menu-cta-container mobile-menu-force-opaque space-y-3" style={{ backgroundColor: '#10151f', background: '#10151f', opacity: 1 }}>
-                {user ? (
-                  <button
-                    onClick={async () => {
-                      setIsOpen(false)
-                      const { signOut } = await import('@/lib/auth')
-                      await signOut()
-                    }}
-                    className="block w-full text-center py-3 px-4 bg-surface-2 hover:bg-surface rounded-lg transition-colors"
-                  >
-                    Déconnexion
-                  </button>
-                ) : (
-                  <Link
-                    href="/connexion"
-                    className="block w-full text-center py-3 px-4 bg-surface-2 hover:bg-surface rounded-lg transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Connexion
-                  </Link>
-                )}
                 <Button 
                   href="/contact" 
                   variant="primary" 

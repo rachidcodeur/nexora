@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic'
 
 import { useState } from 'react'
-import { Mail, Phone, MessageCircle, Clock, CheckCircle, AlertCircle, Send } from 'lucide-react'
+import { MessageCircle, Clock, CheckCircle, AlertCircle, Send } from 'lucide-react'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
 
@@ -12,7 +12,6 @@ function ContactPage() {
     email: '',
     phone: '',
     projectType: '',
-    budget: '',
     message: '',
     consent: false
   })
@@ -27,14 +26,6 @@ function ContactPage() {
     { value: 'ecommerce', label: 'E-commerce 20 produits (799€)' },
     { value: 'custom', label: 'Application web sur mesure' },
     { value: 'other', label: 'Autre projet' }
-  ]
-
-  const budgetRanges = [
-    { value: '100-200', label: '100€ - 200€' },
-    { value: '200-500', label: '200€ - 500€' },
-    { value: '500-1000', label: '500€ - 1000€' },
-    { value: '1000+', label: 'Plus de 1000€' },
-    { value: 'discuss', label: 'À discuter' }
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -52,11 +43,16 @@ function ContactPage() {
     setSubmitError('')
 
     try {
+      // Convertir les valeurs en labels textuels
+      const projectTypeLabel = projectTypes.find(pt => pt.value === formData.projectType)?.label || formData.projectType
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          projectType: projectTypeLabel,
+          budget: null,
           meta: {
             userAgent: typeof window !== 'undefined' ? navigator.userAgent : undefined,
             page: '/contact',
@@ -78,7 +74,6 @@ function ContactPage() {
         email: '',
         phone: '',
         projectType: '',
-        budget: '',
         message: '',
         consent: false
       })
@@ -90,21 +85,12 @@ function ContactPage() {
     }
   }
 
-  const contactMethods = [
-    {
-      icon: <Mail className="w-6 h-6 text-brand" />,
-      title: 'E-mail',
-      description: 'Réponse sous 24h',
-      value: 'contact@nexora-agenceweb.fr',
-      href: 'mailto:contact@nexora-agenceweb.fr'
-    }
-  ]
 
 
   return (
     <div className="min-h-screen" suppressHydrationWarning>
       {/* Hero Section */}
-      <section className="section hero bg-gradient-to-br from-bg via-bg to-surface-2">
+      <section className="section hero bg-gradient-to-br from-bg via-bg to-surface-2 pb-8 md:pb-12">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h1 className="text-5xl md:text-6xl font-bold" suppressHydrationWarning>
@@ -132,12 +118,11 @@ function ContactPage() {
         </div>
       </section>
 
-      <div className="container py-3 md:py-4">
-        <div className="grid lg:grid-cols-2 gap-y-10 gap-x-8 md:gap-x-12 lg:gap-x-16 xl:gap-x-20 md:gap-y-16">
-          {/* Contact Form */}
-          <div>
+      <div className="container pt-5 pb-3 md:pb-4" style={{ paddingTop: '30px' }}>
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl">
             <Card className="px-[26px] py-5 md:p-8">
-              <h2 className="text-2xl font-bold mb-6">Demandez un devis gratuit</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">Demandez un devis gratuit</h2>
               
               {/* Message de succès déplacé en toast bas de page */}
 
@@ -220,26 +205,6 @@ function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="budget" className="label">
-                    Budget approximatif
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    className="select"
-                  >
-                    <option value="">Sélectionnez une fourchette</option>
-                    {budgetRanges.map((range) => (
-                      <option key={range.value} value={range.value}>
-                        {range.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
                   <label htmlFor="message" className="label">
                     Décrivez votre projet *
                   </label>
@@ -297,40 +262,6 @@ function ContactPage() {
                   )}
                 </Button>
               </form>
-            </Card>
-          </div>
-
-          {/* Contact Info & FAQ */}
-          <div className="space-y-8 mt-8 lg:mt-0">
-            {/* Contact Methods */}
-            <Card className="p-8">
-              <h2 className="text-2xl font-bold mb-6 text-white">Autres moyens de contact</h2>
-              <div className="space-y-4">
-                {contactMethods.map((method, index) => (
-                  <a
-                    key={index}
-                    href={method.href}
-                    className="flex items-center space-x-4 p-4 rounded-lg hover:bg-surface-2 transition-colors"
-                  >
-                    {method.icon}
-                    <div>
-                      <h3 className="font-semibold text-white">{method.title}</h3>
-                      <p className="text-sm text-white">{method.description}</p>
-                      <p className="text-sm text-white">{method.value}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </Card>
-
-
-            {/* Transparency Banner */}
-            <Card className="p-6 bg-gradient-to-r from-brand/10 to-accent/10">
-              <h3 className="font-semibold mb-2">Transparence IA</h3>
-              <p className="text-sm text-text-2">
-                Nos sites sont conçus <strong>avec l'IA</strong> et finalisés par un expert 
-                pour garantir qualité et conformité. Chaque livrable est contrôlé avant publication.
-              </p>
             </Card>
           </div>
         </div>
